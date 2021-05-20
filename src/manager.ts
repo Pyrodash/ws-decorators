@@ -6,7 +6,13 @@ import WebSocket from 'ws'
 import { ActionHandler, ActionType, Controller, ControllerConstructor, Hook, HookType, NextFn } from './types'
 
 const defaultOptions: Partial<Options<any>> = {
-    serializeHandlerAction: (action, path) => path.join('::')
+    serializeHandlerAction: (action, path): ActionType => {
+        if (path.length > 1) {
+            return path.join('::')
+        } else {
+            return action // preserve original data type
+        }
+    }
 }
 
 export interface Options<T> {
@@ -14,7 +20,7 @@ export interface Options<T> {
     mask?: RegExp
     controllers?: ControllerConstructor[] | Controller[]
     initialize?: (generator: ControllerConstructor) => Controller
-    serializeHandlerAction?: (action: ActionType, path: string[]) => string
+    serializeHandlerAction?: (action: ActionType, path: string[]) => ActionType
     getData?: (data: unknown) => unknown
     getParams?: (data: unknown, client: T)  => unknown
 }
