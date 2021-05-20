@@ -1,6 +1,6 @@
 # ws-decorators
 
-This library aims to make object-oriented WebSocket server design easier with TypeScript decorators. It was inspired by the Fastify plugin [fastify-decorators](https://github.com/L2jLiga/fastify-decorators)
+This library aims to make object-oriented WebSocket server design easier with TypeScript decorators. It was inspired by the Fastify plugin [fastify-decorators](https://github.com/L2jLiga/fastify-decorators).
 
 ## Setup
 
@@ -21,6 +21,12 @@ Please enable the `experimentalDecorators` and `emitDecoratorMetadata` features 
         "emitDecoratorMetadata": true
     }
 }
+```
+
+### Reflect Metadata
+Make sure to import the `reflect-metadata` shim at the beginning of your code:
+```ts
+import 'reflect-metadata`
 ```
 
 ## Usage
