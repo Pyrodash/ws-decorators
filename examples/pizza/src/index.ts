@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { bootstrap } from '../../../src/index'
+import { bootstrap } from '../../../src/'
 import WebSocket, { Server } from 'ws'
 import { join } from 'path'
 import { Client } from './client'
@@ -21,6 +21,8 @@ client.once('open', () => {
         action: 'pizza-service::order',
         toppings: ['mushroom']
     }))
+
+    client.send(JSON.stringify({ action: 'chef-service::thank' }))
 })
 
 client.on('message', (data) => {

@@ -1,7 +1,4 @@
-import { Controller } from '../../../../src/decorators/controller'
-import { Handler } from '../../../../src/decorators/handler'
-import { NextFn } from '../../../../src/types'
-import { Hook } from '../../../../src/decorators/hook'
+import { Controller, Handler, NextFn, Hook } from '../../../../src/'
 import { Client } from '../client'
 
 interface Pizza {
@@ -22,7 +19,7 @@ export default class PizzaController {
     }
 
     @Hook('preHandler')
-    validateb(data: unknown, client: Client, next: NextFn) {
+    validateB(data: unknown, client: Client, next: NextFn) {
         console.log('validateB')
         next()
     }

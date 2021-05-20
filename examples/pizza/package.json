@@ -1,5 +1,5 @@
 {
-  "name": "ws",
+  "name": "pizza",
   "version": "1.0.0",
   "description": "example for ws-decorators",
   "main": "dist/examples/ws/src/index.js",
