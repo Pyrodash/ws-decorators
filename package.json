@@ -8,11 +8,25 @@
   },
   "keywords": [
     "typescript",
+    "ts",
+    "websocket",
     "websockets",
     "ws",
     "decorators"
   ],
-  "author": "Pyrodash",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pyrodash/ws-decorators.git"
+  },
+  "author": {
+    "name": "Ahmed El-Marakby",
+    "email": "ahmedelmarakby@hotmail.com",
+    "url": "https://ahmedelmarakby.com"
+  },
+  "bugs": {
+    "url": "https://github.com/pyrodash/ws-decorators/issues"
+  },
+  "homepage": "https://github.com/pyrodash/ws-decorators#readme",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^15.3.0",
