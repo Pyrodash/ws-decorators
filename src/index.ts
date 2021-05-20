@@ -14,7 +14,10 @@ export interface BootstrapOptions<T> extends Options {
     getClient?: (socket: WebSocket) => T
 }
 
-export function bootstrap<T = WebSocket>(server: Server, options: BootstrapOptions<T>) {
+export function bootstrap<T = WebSocket>(
+    server: Server,
+    options: BootstrapOptions<T>
+): ControllerManager<T> {
     const opts: BootstrapOptions<T> = {
         ...defaultOptions,
         ...options,
@@ -51,6 +54,8 @@ export function bootstrap<T = WebSocket>(server: Server, options: BootstrapOptio
             }
         })
     })
+
+    return manager
 }
 
 export {
