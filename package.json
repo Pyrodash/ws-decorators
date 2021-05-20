@@ -1,6 +1,6 @@
 {
   "name": "ws-decorators",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "TypeScript decorators for WebSockets",
   "main": "dist/index.js",
   "scripts": {

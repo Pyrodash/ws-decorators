@@ -15,6 +15,7 @@ export interface Options {
     controllers?: ControllerConstructor[] | Controller[]
     initialize?: (generator: ControllerConstructor) => Controller
     serializeHandlerAction?: (action: ActionType, path: string[]) => string
+    getData?: (data: unknown) => unknown
 }
 
 export class ControllerManager<T = WebSocket> extends EventEmitter {
@@ -182,6 +183,10 @@ export class ControllerManager<T = WebSocket> extends EventEmitter {
     }
 
     public handle(action: ActionType, data: unknown, client: T) {
+        if (this.opts.getData) {
+            data = this.opts.getData(data)
+        }
+
         this.controllers.forEach((controller) => {            
             const handlers = this.getHandlers(controller)
                 .filter((handler: ActionHandler) => handler.action === action)
