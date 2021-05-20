@@ -5,25 +5,26 @@ import { join } from 'path'
 import WebSocket from 'ws'
 import { ActionHandler, ActionType, Controller, ControllerConstructor, Hook, HookType, NextFn } from './types'
 
-const defaultOptions: Partial<Options> = {
+const defaultOptions: Partial<Options<any>> = {
     serializeHandlerAction: (action, path) => path.join('::')
 }
 
-export interface Options {
+export interface Options<T> {
     directory?: string
     mask?: RegExp
     controllers?: ControllerConstructor[] | Controller[]
     initialize?: (generator: ControllerConstructor) => Controller
     serializeHandlerAction?: (action: ActionType, path: string[]) => string
     getData?: (data: unknown) => unknown
+    getParams?: (data: unknown, client: T)  => unknown
 }
 
 export class ControllerManager<T = WebSocket> extends EventEmitter {
     public controllers: Set<Controller> = new Set()
 
-    private opts: Options
+    private opts: Options<T>
 
-    constructor(opts: Options) {
+    constructor(opts: Options<T>) {
         super()
 
         this.opts = {
@@ -182,6 +183,12 @@ export class ControllerManager<T = WebSocket> extends EventEmitter {
         Reflect.defineMetadata('controller:hooks', hooks, controller)
     }
 
+    private getParams(data: unknown, client: T) {
+        return this.opts.getParams ?
+            this.opts.getParams(data, client)
+            : {}
+    }
+
     public handle(action: ActionType, data: unknown, client: T) {
         if (this.opts.getData) {
             data = this.opts.getData(data)
@@ -196,7 +203,11 @@ export class ControllerManager<T = WebSocket> extends EventEmitter {
 
                 this.runHooks(hooks, 'preHandler', () => {
                     for (const handler of handlers) {
-                        controller[handler.method](data, client)
+                        controller[handler.method](
+                            data,
+                            client,
+                            this.getParams(data, client)
+                        )
                     }
                 }, data, client)
             }

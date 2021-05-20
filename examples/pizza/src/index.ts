@@ -12,6 +12,9 @@ bootstrap(server, {
     getClient: (socket) => {
         return new Client(socket)
     },
+    getParams: (data) => {
+        return { param: true }
+    },
 })
 
 const client = new WebSocket(`ws://127.0.0.1:${port}`)

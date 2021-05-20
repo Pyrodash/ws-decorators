@@ -25,8 +25,9 @@ export default class PizzaController {
     }
 
     @Handler('order')
-    orderPizza(pizza: Pizza, client: Client) {
+    orderPizza(pizza: Pizza, client: Client, params: unknown) {
         console.log(pizza)
+        console.log(params)
 
         client.send({
             action: 'pizza-service::order',

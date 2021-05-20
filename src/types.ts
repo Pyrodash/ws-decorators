@@ -1,4 +1,4 @@
-export type HandlerFn = (data: any, client: any) => void
+export type HandlerFn = (data: any, client: any, params: any) => void
 export type NextFn = () => void
 
 export type HookType = 'preHandler'

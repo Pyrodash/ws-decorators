@@ -9,7 +9,7 @@ const defaultOptions: Partial<BootstrapOptions<any>> = {
     }
 }
 
-export interface BootstrapOptions<T> extends Options {
+export interface BootstrapOptions<T> extends Options<T> {
     getAction?: (data: any) => ActionType
     getClient?: (socket: WebSocket) => T
 }
