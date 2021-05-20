@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src/",
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "ES2018",
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "strict": true,
+        "lib": ["ES2018"]
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
+}

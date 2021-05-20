@@ -186,13 +186,15 @@ export class ControllerManager<T = WebSocket> extends EventEmitter {
             const handlers = this.getHandlers(controller)
                 .filter((handler: ActionHandler) => handler.action === action)
             
-            const hooks = this.getHooks(controller)
+            if (handlers.length > 0) {
+                const hooks = this.getHooks(controller)
 
-            this.runHooks(hooks, 'preHandler', () => {
-                for (const handler of handlers) {
-                    controller[handler.method](data, client)
-                }
-            }, data, client)
+                this.runHooks(hooks, 'preHandler', () => {
+                    for (const handler of handlers) {
+                        controller[handler.method](data, client)
+                    }
+                }, data, client)
+            }
         })
     }
 
