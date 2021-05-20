@@ -1,0 +1,16 @@
+{
+  "name": "ws",
+  "version": "1.0.0",
+  "description": "example for ws-decorators",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "reflect-metadata": "^0.1.13",
+    "ws": "^7.4.5"
+  }
+}

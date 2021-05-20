@@ -1,0 +1,28 @@
+{
+  "name": "ws-decorators",
+  "version": "1.0.0",
+  "description": "TypeScript decorators for WebSockets",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "typescript",
+    "websockets",
+    "ws",
+    "decorators"
+  ],
+  "author": "Pyrodash",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^15.3.0",
+    "@types/ws": "^7.4.4",
+    "typescript": "^4.2.4"
+  },
+  "peerDependencies": {
+    "ws": "^7.4.5"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}
