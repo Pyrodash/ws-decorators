@@ -3,7 +3,7 @@
         "baseUrl": "./src/",
         "outDir": "./dist/",
         "sourceMap": true,
-        "module": "ES2020",
+        "module": "commonjs",
         "moduleResolution": "node",
         "target": "ES2018",
         "allowSyntheticDefaultImports": true,

@@ -10,7 +10,6 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,
-        "declaration": true,
         "strict": true,
         "lib": ["ES2018"]
     },
