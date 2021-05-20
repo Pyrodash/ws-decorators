@@ -77,7 +77,7 @@ export class ControllerManager<T = WebSocket> extends EventEmitter {
         return true
     }
 
-    private createController(generator: ControllerConstructor) {
+    private createController(generator: ControllerConstructor | Controller) {
         if (typeof generator === 'function') {
             if (this.opts.initialize) {
                 return this.opts.initialize(generator)
@@ -116,7 +116,7 @@ export class ControllerManager<T = WebSocket> extends EventEmitter {
         this.setupHooks(controller)
     }
 
-    private loadController(generator: ControllerConstructor) {
+    private loadController(generator: ControllerConstructor | Controller) {
         const controller = this.createController(generator)
 
         this.setupController(controller)

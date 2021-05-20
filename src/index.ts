@@ -25,6 +25,14 @@ export function bootstrap<T = WebSocket>(server: Server, options: BootstrapOptio
     manager.initSync() // block to prevent receiving requests before ready
 
     server.on('connection', (socket) => {
+        let client: T
+
+        if (opts.getClient) {
+            client = opts.getClient(socket)
+        } else {
+            client = socket as unknown as T
+        }
+
         socket.on('message', (data) => {
             let packet
 
@@ -35,14 +43,6 @@ export function bootstrap<T = WebSocket>(server: Server, options: BootstrapOptio
             }
 
             if (packet) {
-                let client: T
-
-                if (opts.getClient) {
-                    client = opts.getClient(socket)
-                } else {
-                    client = socket as unknown as T
-                }
-
                 let action = opts.getAction ?
                     opts.getAction(packet)
                     : packet.action as ActionType
