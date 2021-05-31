@@ -12,8 +12,13 @@ const defaultOptions: Partial<Options<any>> = {
         } else {
             return action // preserve original data type
         }
+    },
+    getAction(data: { action: ActionType }) {
+        return data.action
     }
 }
+
+export type SerializedType = WebSocket.Data
 
 export interface Options<T> {
     directory?: string
@@ -21,8 +26,10 @@ export interface Options<T> {
     controllers?: ControllerConstructor[] | Controller[]
     initialize?: (generator: ControllerConstructor) => Controller
     serializeHandlerAction?: (action: ActionType, path: string[]) => ActionType
+    getAction?: (data: any) => ActionType
     getData?: (data: unknown) => unknown
     getParams?: (data: unknown, client: T)  => unknown
+    deserialize?(data: SerializedType): any
 }
 
 export class ControllerManager<T = WebSocket> extends EventEmitter {
@@ -195,7 +202,35 @@ export class ControllerManager<T = WebSocket> extends EventEmitter {
             : {}
     }
 
+    public deserialize(data: SerializedType): any {
+        return this.opts.deserialize ?
+            this.opts.deserialize(data) :
+            JSON.parse(data.toString('utf8'))
+    }
+
+    public process(data: SerializedType, client: T): void {
+        let packet
+
+        try {
+            packet = this.deserialize(data)
+        } catch(err) {
+            packet = null
+        }
+
+        if (packet) {
+            let action = this.opts.getAction ?
+                this.opts.getAction(packet)
+                : packet.action as ActionType
+
+            this.handle(action, packet, client)
+        }
+    }
+
     public handle(action: ActionType, data: unknown, client: T) {
+        if (!data) {
+            return
+        }
+
         if (this.opts.getData) {
             data = this.opts.getData(data)
         }

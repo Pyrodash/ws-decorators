@@ -15,6 +15,9 @@ bootstrap(server, {
     getParams: (data) => {
         return { param: true }
     },
+    deserialize: (data) => {
+        return JSON.parse(data.toString('utf8'))
+    }
 })
 
 const client = new WebSocket(`ws://127.0.0.1:${port}`)

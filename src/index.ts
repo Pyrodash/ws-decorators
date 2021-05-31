@@ -3,14 +3,9 @@ import { Hook, Handler, Controller } from './decorators/'
 import { ActionType, NextFn } from './types'
 import WebSocket, { Server } from 'ws'
 
-const defaultOptions: Partial<BootstrapOptions<any>> = {
-    getAction(data: { action: ActionType }) {
-        return data.action
-    }
-}
+const defaultOptions: Partial<BootstrapOptions<any>> = {}
 
 export interface BootstrapOptions<T> extends Options<T> {
-    getAction?: (data: any) => ActionType
     getClient?: (socket: WebSocket) => T
 }
 
@@ -37,21 +32,7 @@ export function bootstrap<T = WebSocket>(
         }
 
         socket.on('message', (data) => {
-            let packet
-
-            try {
-                packet = JSON.parse(data.toString('utf8'))
-            } catch(err) {
-                packet = null
-            }
-
-            if (packet) {
-                let action = opts.getAction ?
-                    opts.getAction(packet)
-                    : packet.action as ActionType
-    
-                manager.handle(action, packet, client)
-            }
+            manager.process(data, client)
         })
     })
 
