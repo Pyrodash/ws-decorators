@@ -231,6 +231,8 @@ export class ControllerManager<T = WebSocket> extends EventEmitter {
             return
         }
 
+        const originalData = data
+
         if (this.opts.getData) {
             data = this.opts.getData(data)
         }
@@ -247,7 +249,7 @@ export class ControllerManager<T = WebSocket> extends EventEmitter {
                         controller[handler.method](
                             data,
                             client,
-                            this.getParams(data, client)
+                            this.getParams(originalData, client)
                         )
                     }
                 }, data, client)
