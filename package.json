@@ -1,6 +1,6 @@
 {
   "name": "ws-decorators",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "TypeScript decorators for WebSockets",
   "main": "dist/index.js",
   "scripts": {
@@ -35,7 +35,7 @@
     "typescript": "^4.2.4"
   },
   "peerDependencies": {
-    "ws": "^7.4.5"
+    "ws": "*"
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13"
